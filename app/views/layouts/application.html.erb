@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My first app</title>
+  <%= stylesheet_link_tag    "application", media: "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<!-- Fixed navbar -->
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">Page Controller app</a>
+    </div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <% if model_signed_in? %>
+          <li>
+            <a href="#">
+              <%= current_model.email  %>
+            </a>
+          <li>
+          <% else %>
+          <li>
+            <%= link_to "Log in", new_model_session_path  %>
+          </li>
+          <li>
+            <%= link_to "Sign up", new_model_registration_path  %>
+          </li>
+        <% end %>
+        <% if model_signed_in? %>
+          <li><%= link_to "Exit", destroy_model_session_path, method: :delete %></li>
+        <% end %>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <% @pages.each do |page| %>
+              <li class="dropdown-header"><%= link_to page.name, edit_page_path(page) %></li>
+            <% end %>
+          </ul>
+        </li>
+      </ul>
+
+    </div><!--/.nav-collapse -->
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <% if notice.present? %>
+      <div class="col-md-8 col-md-offset-2">
+        <div class="alert alert-info">
+          <button class="close" data-dismiss="alert">×</button>
+          <%= notice %>
+        </div>
+      </div>
+    <% end %>
+    <% if alert.present? %>
+      <div class="col-md-8 col-md-offset-2">
+        <div class="alert">
+          <button class="close" data-dismiss="alert">×</button>
+          <%= alert %>
+        </div>
+      </div>
+    <% end %>
+  </div><!--/row-->
+</div><!--/.container-->
+<div class="container">
+  <div class="row">
+    <%= yield %>
+  </div><!--/row-->
+</div><!--/.container-->
+</body>
+</html>

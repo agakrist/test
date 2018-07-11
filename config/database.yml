@@ -1,0 +1,8 @@
+development:
+  adapter: postgresql
+  encoding: utf8
+  database: firstproject
+  host: localhost
+  pool: 5
+  username: postgres
+  password: 1231231231
