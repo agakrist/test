@@ -1,0 +1,17 @@
+%p#notice= notice
+%h1 Pages
+%table.table
+  %thead
+    %tr
+      %th{:colspan => "4"}
+  %tbody
+    - @pages.each do |page|
+      %tr
+        %td= page.name
+        %td= link_to 'Show', page
+        - if model_signed_in?
+          %td= link_to 'Edit', edit_page_path(page)
+          %td= link_to 'Destroy', page, method: :delete, data: { confirm: 'Are you sure?' }
+%br/
+- if model_signed_in?
+  = link_to 'New Page', new_page_path

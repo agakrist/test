@@ -1,6 +1,0 @@
-<h1><%= @page.name %></h1>
-<h4><%= @page.description %></h4>
-<% if @i_am_admin %>
-    <%= link_to 'Edit', edit_page_path(@page) %> |
-<% end  %>
-<%= link_to 'Back', pages_path %>

@@ -65,7 +65,7 @@ gem 'jquery-rails'
 gem 'sprockets-rails'
 gem 'pg', '~> 0.18.4'
 gem 'simple_form'
-
+gem 'haml'
 gem 'bootstrap-sass', '~> 3.3.7'
 gem 'sass-rails', '>= 3.2'
 gem 'popper_js', '~> 1.12.9'

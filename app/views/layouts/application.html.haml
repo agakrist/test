@@ -1,0 +1,63 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %meta{:charset => "utf-8"}/
+    %meta{:content => "IE=edge", "http-equiv" => "X-UA-Compatible"}/
+    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/
+    %title My first app
+    = stylesheet_link_tag    "application", media: "all"
+    = javascript_include_tag "application"
+    = csrf_meta_tags
+  %body
+    / Fixed navbar
+    .navbar.navbar-default.navbar-fixed-top{:role => "navigation"}
+      .container
+        .navbar-header
+          %button.navbar-toggle{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", :type => "button"}
+            %span.sr-only Toggle navigation
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+          %a.navbar-brand{:href => "/"} Page Controller app
+        .navbar-collapse.collapse
+          %ul.nav.navbar-nav
+            - if model_signed_in?
+              %li
+                %a{:href => "#"}
+                  = current_model.email
+              %li
+            - else
+              %li
+                = link_to "Log in", new_model_session_path
+              %li
+                = link_to "Sign up", new_model_registration_path
+            - if model_signed_in?
+              %li= link_to "Exit", destroy_model_session_path, method: :delete
+            %li.dropdown
+              %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+                Pages
+                %b.caret
+              %ul.dropdown-menu
+                - @pages.each do |page|
+                  %li.dropdown-header= link_to page.name, page
+        / /.nav-collapse
+    .container
+      .row
+        - if notice.present?
+          .col-md-8.col-md-offset-2
+            .alert.alert-info
+              %button.close{"data-dismiss" => "alert"} ×
+              = notice
+        - if alert.present?
+          .col-md-8.col-md-offset-2
+            .alert
+              %button.close{"data-dismiss" => "alert"} ×
+              = alert
+      / /row
+    / /.container
+    .container
+      .row
+        = yield
+      / /row
+    / /.container

@@ -5,22 +5,13 @@ class ApplicationController < ActionController::Base
 
   def nav_menu
     @pages = Page.all
+    @log = controller_name
+    @log1 = action_name
   end
 
   def authenticate_user
-    @admin = 'admin@mail.com'
-    @i_am_admin = admin_check
-  end
-
-  def admin_check
-    if model_signed_in?
-      if current_model.email == @admin
-        true
-      else
-        false
-      end
-    else
-      false
+    if !model_signed_in? && action_name == 'edit'
+      redirect_to pages_url and return
     end
   end
 
